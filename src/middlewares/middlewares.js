@@ -14,4 +14,11 @@ const checkUser = (req, res, next) => {
     }
   };
   
-  module.exports = { checkUser, secureRoute };
+  function protectFromDelete(req, res, next) {
+    if (req.method !== 'DELETE') {
+        return res.status(403).send('Доступ запрещен'); 
+    }
+    next(); 
+}
+  
+  module.exports = { checkUser, secureRoute, protectFromDelete };
